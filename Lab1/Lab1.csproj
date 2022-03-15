@@ -10,16 +10,4 @@
     <PackageReference Include="Npgsql" Version="6.0.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Form2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Form1 - Копировать.resx">
-      <DependentUpon>MainForm.resx</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-
 </Project>
