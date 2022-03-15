@@ -10,7 +10,7 @@ namespace Lab1
     {
         /// <summary>
         ///  The main entry point for the application.
-        
+        // test
         [STAThread]
         static void Main()
         {
