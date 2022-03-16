@@ -13,8 +13,11 @@ namespace Lab1
 {
     public partial class MainForm : Form
     {
+        // Дочерняя форма для ввода данных соединения
         private readonly ConnectionForm ConnectionForm;
+        // Дескриптор соединения с БД
         private readonly NpgsqlConnection Connection;
+        // Строка соединения с БД
         private string ConnectionString;
 
         public MainForm()
@@ -27,6 +30,12 @@ namespace Lab1
             this.ConnectionString = "";
         }
 
+        /// <summary>
+        /// Событие инициализации соединения: показывает ConnectionForm, которая принимает данные соединения
+        /// и передаёт их ConnectionString
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший данное событие</param>
+        /// <param name="e">Аргументы события</param>
         private void InitButtonClick(object sender, EventArgs e)
         {
             try
@@ -42,6 +51,7 @@ namespace Lab1
                 );
             }
 
+            // Если данные не были получены
             if (this.ConnectionString == "")
             {
                 this.OpenButton.Enabled = false;
@@ -78,6 +88,11 @@ namespace Lab1
             }
         }
 
+        /// <summary>
+        /// Событие открытия соединения с БД
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший данное событие</param>
+        /// <param name="e">Аргументы события</param>
         private async void OpenButtonClick(object sender, EventArgs e)
         {
             try
@@ -103,6 +118,11 @@ namespace Lab1
             }
         }
 
+        /// <summary>
+        /// Событие закрытия соединения с БД
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void CloseButtonClick(object sender, EventArgs e)
         {
             try
@@ -128,6 +148,11 @@ namespace Lab1
             }
         }
 
+        /// <summary>
+        /// Событие выполнения запроса к БД
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void ExecuteButtonClick(object sender, EventArgs e)
         {
             try

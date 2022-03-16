@@ -11,6 +11,7 @@ namespace Lab1
 {
     public partial class ConnectionForm : Form
     {
+        // Строка соединения (для внешнего кода доступно только чтение)
         public string ConnectionString { get; private set; }
 
         public ConnectionForm()
@@ -37,6 +38,11 @@ namespace Lab1
         private void ExitButtonClick(object sender, EventArgs e) => Exit();
         private void EnviromentClick(object sender, EventArgs e) => ((Control)sender).Select();
 
+        /// <summary>
+        /// Событие, которое вызывается при нажатии клавиш
+        /// </summary>
+        /// <param name="sender">Объект, который вызвал данное событие</param>
+        /// <param name="e"></param>
         private void KeyPressed(object sender, PreviewKeyDownEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
