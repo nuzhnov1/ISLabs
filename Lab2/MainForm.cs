@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
+using System.Data.Common;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,150 +13,133 @@ namespace Lab1
 {
     public partial class MainForm : Form
     {
-        private readonly ConnectionForm ConnectionForm;
+        // Данные соединения:
+
+        const string HOST = "localhost";
+        const int PORT = 5432;
+        const string DATABASE = "restaurant";
+        const string USERNAME = "admin";
+        const string PASSWORD = "hydra";
+
+        // Дескриптор соединения с БД
         private readonly NpgsqlConnection Connection;
-        private string ConnectionString;
+        // Строка соединения с БД
+        private readonly string ConnectionString;
 
         public MainForm()
         {
             InitializeComponent();
-
-            this.ConnectionForm = new ConnectionForm();
             this.Connection = new NpgsqlConnection();
-            this.AddOwnedForm(ConnectionForm);
-            this.ConnectionString = "";
+            this.ConnectionString = String.Format(
+                "Host = {0}; Port = {1}; Database = {2}; " +
+                "Username = {3}; Password = {4};",
+                HOST, PORT, DATABASE, USERNAME, PASSWORD
+            );
         }
 
-        private void InitButtonClick(object sender, EventArgs e)
+        /// <summary>
+        /// Событие соединения с БД и извлечения данных из неё
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший данное событие</param>
+        /// <param name="e">Аргументы события</param>
+        private async void ShowButtonClick(object sender, EventArgs e)
         {
             try
             {
-                this.ConnectionForm.ShowDialog();
-                this.ConnectionString = this.ConnectionForm.ConnectionString;
+                this.Connection.ConnectionString = this.ConnectionString;
+                await this.Connection.OpenAsync();
             }
             catch (SystemException exception)
             {
                 MessageBox.Show(
-                    exception.Message, "Ошибка инициализации",
+                    exception.Message, "Ошибка подключения к базе данных",
                     MessageBoxButtons.OK, MessageBoxIcon.Error
                 );
+
+                return;
             }
 
-            if (this.ConnectionString == "")
-            {
-                this.OpenButton.Enabled = false;
-                this.CloseButton.Enabled = false;
-                this.ExecButton.Enabled = false;
-                this.QueryBox.Enabled = false;
-                this.TableView.Visible = false;
-
-                this.StatusValueLabel.Text = "не инициализировано";
-                this.StatusValueLabel.ForeColor = Color.Black;
-            }
-            else
-            {
-                try
-                {
-                    this.Connection.ConnectionString = this.ConnectionString;
-                }
-                catch (NpgsqlException exception)
-                {
-                    MessageBox.Show(
-                        exception.Message, "Ошибка инициализации",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error
-                    );
-                }
-
-                this.OpenButton.Enabled = true;
-                this.CloseButton.Enabled = false;
-                this.ExecButton.Enabled = false;
-                this.QueryBox.Enabled = false;
-                this.TableView.Visible = false;
-
-                this.StatusValueLabel.Text = "инициализировано";
-                this.StatusValueLabel.ForeColor = Color.Green;
-            }
-        }
-
-        private async void OpenButtonClick(object sender, EventArgs e)
-        {
             try
             {
-                await this.Connection.OpenAsync();
-
-                this.InitButton.Enabled = false;
-                this.OpenButton.Enabled = false;
-                this.CloseButton.Enabled = true;
-                this.ExecButton.Enabled = this.QueryBox.Text != "";
-                this.QueryBox.Enabled = true;
-                this.TableView.Visible = true;
-
-                this.StatusValueLabel.Text = "открыто";
-                this.StatusValueLabel.ForeColor = Color.Yellow;
-            }
-            catch (NpgsqlException exception)
-            {
-                MessageBox.Show(
-                    exception.Message, "Ошибка открытия",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error
-                );
-            }
-        }
-
-        private async void CloseButtonClick(object sender, EventArgs e)
-        {
-            try
-            {
-                await this.Connection.CloseAsync();
-
-                this.StatusValueLabel.Text = "закрыто";
-                this.StatusValueLabel.ForeColor = Color.Red;
-
-                this.InitButton.Enabled = true;
-                this.OpenButton.Enabled = true;
-                this.CloseButton.Enabled = false;
-                this.ExecButton.Enabled = false;
-                this.QueryBox.Enabled = false;
-                this.TableView.Visible = false;
-            }
-            catch (NpgsqlException exception)
-            {
-                MessageBox.Show(
-                    exception.Message, "Ошибка закрытия",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error
-                );
-            }
-        }
-
-        private async void ExecuteButtonClick(object sender, EventArgs e)
-        {
-            try
-            {
-                await using var query = new NpgsqlCommand(this.QueryBox.Text, this.Connection);
-                await using var reader = await query.ExecuteReaderAsync();
+                string queryString = @"
+                    WITH waiters AS (
+	                    SELECT
+		                    workers.id AS id,
+		                    workers.full_name AS name,
+		                    positions.name AS position
+	                    FROM workers INNER JOIN positions ON workers.position_id = positions.id
+	                    WHERE positions.name = 'Waiter'
+                    ),
+                    cooks AS (
+	                    SELECT
+		                    workers.id AS id,
+		                    workers.full_name AS name,
+		                    positions.name AS position
+	                    FROM workers INNER JOIN positions ON workers.position_id = positions.id
+	                    WHERE positions.name = 'Chef'
+                    )
+                    SELECT
+	                    dishes.name AS dish_name,
+	                    dishes.price AS dish_price,
+	                    dishes.cook_time AS dish_cook_time,
+	                    waiters.name AS waiter,
+	                    cooks.name AS chef
+                    FROM orders
+	                    INNER JOIN dishes ON orders.dish_id = dishes.id
+	                    INNER JOIN waiters ON orders.waiter_id = waiters.id
+	                    INNER JOIN cooks ON orders.chef_id = cooks.id;
+                ";
                 
-                if (reader.FieldCount > 0)
-                {
-                    var table = new DataTable();
+                await using var query = new NpgsqlCommand(queryString, this.Connection);
+                await using var reader = await query.ExecuteReaderAsync();
 
-                    table.Load(reader);
-                    this.TableView.DataSource = table;
-                }
-                else
-                {
-                    MessageBox.Show("Операция выполнена успешно", 
-                        "Результат выполнения команды", 
-                        MessageBoxButtons.OK, MessageBoxIcon.Information
-                    );
-                }
+                PrintTable(reader);
             }
-            catch (NpgsqlException exception)
+            catch (DbException exception)
             {
-                MessageBox.Show(exception.Message, "Ошибка выполнения команды", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    exception.Message, "Ошибка извлечения данных",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error
+                );
+
+                return;
             }
+
+            this.TableBox.Enabled = true;
+            this.InsertButton.Enabled = true;
+            this.DeleteButton.Enabled = true;
+            this.ShowButton.Enabled = false;
+        }
+
+        private async void PrintTable(NpgsqlDataReader reader)
+        {
+            StringBuilder result = new StringBuilder(@"{\rtf1 ");
+
+            this.TableBox.Clear();
+
+            // Добавление заголовка таблицы
+            result.Append(@"\trowd");
+            for (int i = 0; i < reader.FieldCount; i++)
+                result.Append(@"\cellx" + (i + 1) * 1600 + @"\trrh400");
+            for (int i = 0; i < reader.FieldCount; i++)
+                result.Append(@"\intbl \b " + reader.GetName(i) + @" \b0 \cell");
+            result.Append(@"\row");
+
+            // Добавление содержимого таблицы
+            while (await reader.ReadAsync())
+            {
+                result.Append(@"\trowd");
+                for (int i = 0; i < reader.FieldCount; i++)
+                    result.Append(@"\cellx" + (i + 1) * 1600 + @"\trrh400");
+                for (int i = 0; i < reader.FieldCount; i++)
+                    result.Append(@"\intbl " + reader[i].ToString() + @" \cell");
+                result.Append(@"\row");
+            }
+
+            result.Append(@"\pard}");
+            this.TableBox.Rtf = result.ToString();
         }
 
         private void EnviromentClick(object sender, EventArgs e) => ((Control)sender).Select();
-        private void QueryBoxLostFocus(object sender, EventArgs e) => this.ExecButton.Enabled = this.QueryBox.Text != "";
     }
 }

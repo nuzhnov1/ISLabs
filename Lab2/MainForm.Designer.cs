@@ -29,186 +29,95 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.InitButton = new System.Windows.Forms.Button();
-            this.OpenButton = new System.Windows.Forms.Button();
-            this.CloseButton = new System.Windows.Forms.Button();
-            this.ExecButton = new System.Windows.Forms.Button();
-            this.QueryBox = new System.Windows.Forms.TextBox();
-            this.QueryLabel = new System.Windows.Forms.Label();
-            this.TableView = new System.Windows.Forms.DataGridView();
-            this.StatusLabel = new System.Windows.Forms.Label();
-            this.StatusValueLabel = new System.Windows.Forms.Label();
+            this.ShowButton = new System.Windows.Forms.Button();
             this.MainPanel = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.TableView)).BeginInit();
+            this.DeleteButton = new System.Windows.Forms.Button();
+            this.InsertButton = new System.Windows.Forms.Button();
+            this.TableBox = new System.Windows.Forms.RichTextBox();
             this.MainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // InitButton
+            // ShowButton
             // 
-            this.InitButton.AutoSize = true;
-            this.InitButton.BackColor = System.Drawing.SystemColors.Desktop;
-            this.InitButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrchid;
-            this.InitButton.FlatAppearance.BorderSize = 2;
-            this.InitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.InitButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.InitButton.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.InitButton.ImageKey = "(нет)";
-            this.InitButton.Location = new System.Drawing.Point(10, 10);
-            this.InitButton.Margin = new System.Windows.Forms.Padding(10);
-            this.InitButton.Name = "InitButton";
-            this.InitButton.Size = new System.Drawing.Size(250, 50);
-            this.InitButton.TabIndex = 8;
-            this.InitButton.Text = "Инициализировать соединение";
-            this.InitButton.UseVisualStyleBackColor = false;
-            this.InitButton.Click += new System.EventHandler(this.InitButtonClick);
-            // 
-            // OpenButton
-            // 
-            this.OpenButton.AutoSize = true;
-            this.OpenButton.BackColor = System.Drawing.SystemColors.Desktop;
-            this.OpenButton.Enabled = false;
-            this.OpenButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrchid;
-            this.OpenButton.FlatAppearance.BorderSize = 2;
-            this.OpenButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OpenButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.OpenButton.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.OpenButton.ImageKey = "(нет)";
-            this.OpenButton.Location = new System.Drawing.Point(10, 80);
-            this.OpenButton.Margin = new System.Windows.Forms.Padding(10);
-            this.OpenButton.Name = "OpenButton";
-            this.OpenButton.Size = new System.Drawing.Size(250, 50);
-            this.OpenButton.TabIndex = 9;
-            this.OpenButton.Text = "Открыть соединение";
-            this.OpenButton.UseVisualStyleBackColor = false;
-            this.OpenButton.Click += new System.EventHandler(this.OpenButtonClick);
-            // 
-            // CloseButton
-            // 
-            this.CloseButton.AutoSize = true;
-            this.CloseButton.BackColor = System.Drawing.SystemColors.Desktop;
-            this.CloseButton.Enabled = false;
-            this.CloseButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrchid;
-            this.CloseButton.FlatAppearance.BorderSize = 2;
-            this.CloseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CloseButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.CloseButton.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.CloseButton.ImageKey = "(нет)";
-            this.CloseButton.Location = new System.Drawing.Point(280, 10);
-            this.CloseButton.Margin = new System.Windows.Forms.Padding(10);
-            this.CloseButton.Name = "CloseButton";
-            this.CloseButton.Size = new System.Drawing.Size(250, 50);
-            this.CloseButton.TabIndex = 10;
-            this.CloseButton.Text = "Закрыть соединение";
-            this.CloseButton.UseVisualStyleBackColor = false;
-            this.CloseButton.Click += new System.EventHandler(this.CloseButtonClick);
-            // 
-            // ExecButton
-            // 
-            this.ExecButton.AutoSize = true;
-            this.ExecButton.BackColor = System.Drawing.SystemColors.Desktop;
-            this.ExecButton.Enabled = false;
-            this.ExecButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrchid;
-            this.ExecButton.FlatAppearance.BorderSize = 2;
-            this.ExecButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ExecButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.ExecButton.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.ExecButton.ImageKey = "(нет)";
-            this.ExecButton.Location = new System.Drawing.Point(280, 80);
-            this.ExecButton.Margin = new System.Windows.Forms.Padding(10);
-            this.ExecButton.Name = "ExecButton";
-            this.ExecButton.Size = new System.Drawing.Size(250, 50);
-            this.ExecButton.TabIndex = 11;
-            this.ExecButton.Text = "Выполнить команду";
-            this.ExecButton.UseVisualStyleBackColor = false;
-            this.ExecButton.Click += new System.EventHandler(this.ExecuteButtonClick);
-            // 
-            // QueryBox
-            // 
-            this.QueryBox.AcceptsReturn = true;
-            this.QueryBox.AcceptsTab = true;
-            this.QueryBox.AllowDrop = true;
-            this.QueryBox.Enabled = false;
-            this.QueryBox.HideSelection = false;
-            this.QueryBox.Location = new System.Drawing.Point(550, 68);
-            this.QueryBox.Margin = new System.Windows.Forms.Padding(10, 0, 10, 10);
-            this.QueryBox.Multiline = true;
-            this.QueryBox.Name = "QueryBox";
-            this.QueryBox.Size = new System.Drawing.Size(450, 84);
-            this.QueryBox.TabIndex = 13;
-            this.QueryBox.Click += new System.EventHandler(this.EnviromentClick);
-            this.QueryBox.Leave += new System.EventHandler(this.QueryBoxLostFocus);
-            // 
-            // QueryLabel
-            // 
-            this.QueryLabel.AutoSize = true;
-            this.QueryLabel.Location = new System.Drawing.Point(549, 49);
-            this.QueryLabel.Margin = new System.Windows.Forms.Padding(10, 10, 10, 0);
-            this.QueryLabel.Name = "QueryLabel";
-            this.QueryLabel.Size = new System.Drawing.Size(167, 19);
-            this.QueryLabel.TabIndex = 14;
-            this.QueryLabel.Text = "Команда на языке SQL:";
-            this.QueryLabel.Click += new System.EventHandler(this.EnviromentClick);
-            // 
-            // TableView
-            // 
-            this.TableView.AllowUserToOrderColumns = true;
-            this.TableView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.TableView.Cursor = System.Windows.Forms.Cursors.Default;
-            this.TableView.Location = new System.Drawing.Point(10, 172);
-            this.TableView.Margin = new System.Windows.Forms.Padding(10);
-            this.TableView.Name = "TableView";
-            this.TableView.RowTemplate.Height = 25;
-            this.TableView.Size = new System.Drawing.Size(988, 360);
-            this.TableView.TabIndex = 15;
-            this.TableView.Visible = false;
-            this.TableView.Click += new System.EventHandler(this.EnviromentClick);
-            // 
-            // StatusLabel
-            // 
-            this.StatusLabel.AutoSize = true;
-            this.StatusLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.StatusLabel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.StatusLabel.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.StatusLabel.Location = new System.Drawing.Point(550, 10);
-            this.StatusLabel.Margin = new System.Windows.Forms.Padding(10, 10, 0, 10);
-            this.StatusLabel.Name = "StatusLabel";
-            this.StatusLabel.Size = new System.Drawing.Size(142, 19);
-            this.StatusLabel.TabIndex = 16;
-            this.StatusLabel.Text = "Статус соединения:";
-            this.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.StatusLabel.Click += new System.EventHandler(this.EnviromentClick);
-            // 
-            // StatusValueLabel
-            // 
-            this.StatusValueLabel.AutoSize = true;
-            this.StatusValueLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.StatusValueLabel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.StatusValueLabel.ForeColor = System.Drawing.Color.Black;
-            this.StatusValueLabel.Location = new System.Drawing.Point(692, 10);
-            this.StatusValueLabel.Margin = new System.Windows.Forms.Padding(0, 10, 10, 10);
-            this.StatusValueLabel.Name = "StatusValueLabel";
-            this.StatusValueLabel.Size = new System.Drawing.Size(161, 19);
-            this.StatusValueLabel.TabIndex = 17;
-            this.StatusValueLabel.Text = "не инициализировано";
-            this.StatusValueLabel.Click += new System.EventHandler(this.EnviromentClick);
+            this.ShowButton.AutoSize = true;
+            this.ShowButton.BackColor = System.Drawing.SystemColors.Desktop;
+            this.ShowButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrchid;
+            this.ShowButton.FlatAppearance.BorderSize = 2;
+            this.ShowButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ShowButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ShowButton.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.ShowButton.ImageKey = "(нет)";
+            this.ShowButton.Location = new System.Drawing.Point(838, 0);
+            this.ShowButton.Margin = new System.Windows.Forms.Padding(0, 0, 10, 50);
+            this.ShowButton.Name = "ShowButton";
+            this.ShowButton.Size = new System.Drawing.Size(163, 50);
+            this.ShowButton.TabIndex = 8;
+            this.ShowButton.Text = "Показать";
+            this.ShowButton.UseVisualStyleBackColor = false;
+            this.ShowButton.Click += new System.EventHandler(this.ShowButtonClick);
             // 
             // MainPanel
             // 
-            this.MainPanel.Controls.Add(this.InitButton);
-            this.MainPanel.Controls.Add(this.TableView);
-            this.MainPanel.Controls.Add(this.StatusValueLabel);
-            this.MainPanel.Controls.Add(this.ExecButton);
-            this.MainPanel.Controls.Add(this.StatusLabel);
-            this.MainPanel.Controls.Add(this.OpenButton);
-            this.MainPanel.Controls.Add(this.QueryLabel);
-            this.MainPanel.Controls.Add(this.CloseButton);
-            this.MainPanel.Controls.Add(this.QueryBox);
-            this.MainPanel.Location = new System.Drawing.Point(9, 9);
-            this.MainPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.MainPanel.Controls.Add(this.DeleteButton);
+            this.MainPanel.Controls.Add(this.InsertButton);
+            this.MainPanel.Controls.Add(this.TableBox);
+            this.MainPanel.Controls.Add(this.ShowButton);
+            this.MainPanel.Location = new System.Drawing.Point(14, 14);
+            this.MainPanel.Margin = new System.Windows.Forms.Padding(5);
             this.MainPanel.Name = "MainPanel";
-            this.MainPanel.Size = new System.Drawing.Size(1011, 552);
+            this.MainPanel.Size = new System.Drawing.Size(1001, 547);
             this.MainPanel.TabIndex = 18;
             this.MainPanel.Click += new System.EventHandler(this.EnviromentClick);
+            // 
+            // DeleteButton
+            // 
+            this.DeleteButton.AutoSize = true;
+            this.DeleteButton.BackColor = System.Drawing.SystemColors.Desktop;
+            this.DeleteButton.Enabled = false;
+            this.DeleteButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrchid;
+            this.DeleteButton.FlatAppearance.BorderSize = 2;
+            this.DeleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.DeleteButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.DeleteButton.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.DeleteButton.ImageKey = "(нет)";
+            this.DeleteButton.Location = new System.Drawing.Point(838, 170);
+            this.DeleteButton.Margin = new System.Windows.Forms.Padding(0, 0, 10, 20);
+            this.DeleteButton.Name = "DeleteButton";
+            this.DeleteButton.Size = new System.Drawing.Size(163, 50);
+            this.DeleteButton.TabIndex = 19;
+            this.DeleteButton.Text = "Удалить";
+            this.DeleteButton.UseVisualStyleBackColor = false;
+            // 
+            // InsertButton
+            // 
+            this.InsertButton.AutoSize = true;
+            this.InsertButton.BackColor = System.Drawing.SystemColors.Desktop;
+            this.InsertButton.Enabled = false;
+            this.InsertButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrchid;
+            this.InsertButton.FlatAppearance.BorderSize = 2;
+            this.InsertButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.InsertButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.InsertButton.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.InsertButton.ImageKey = "(нет)";
+            this.InsertButton.Location = new System.Drawing.Point(838, 100);
+            this.InsertButton.Margin = new System.Windows.Forms.Padding(0, 0, 10, 20);
+            this.InsertButton.Name = "InsertButton";
+            this.InsertButton.Size = new System.Drawing.Size(163, 50);
+            this.InsertButton.TabIndex = 18;
+            this.InsertButton.Text = "Вставить";
+            this.InsertButton.UseVisualStyleBackColor = false;
+            // 
+            // TableBox
+            // 
+            this.TableBox.BackColor = System.Drawing.Color.Silver;
+            this.TableBox.Enabled = false;
+            this.TableBox.Location = new System.Drawing.Point(0, 0);
+            this.TableBox.Margin = new System.Windows.Forms.Padding(10, 0, 10, 10);
+            this.TableBox.Name = "TableBox";
+            this.TableBox.Size = new System.Drawing.Size(828, 547);
+            this.TableBox.TabIndex = 17;
+            this.TableBox.Text = "";
+            this.TableBox.Click += new System.EventHandler(this.EnviromentClick);
             // 
             // MainForm
             // 
@@ -222,8 +131,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Text = "ИС. Лабораторная работа №1. Команда - HydraSquad.";
-            ((System.ComponentModel.ISupportInitialize)(this.TableView)).EndInit();
+            this.Text = "ИС. Лабораторная работа №2. Команда - HydraSquad.";
             this.MainPanel.ResumeLayout(false);
             this.MainPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -232,15 +140,10 @@
 
         #endregion
 
-        private System.Windows.Forms.Button InitButton;
-        private System.Windows.Forms.Button OpenButton;
-        private System.Windows.Forms.Button CloseButton;
-        private System.Windows.Forms.Button ExecButton;
-        private System.Windows.Forms.TextBox QueryBox;
-        private System.Windows.Forms.Label QueryLabel;
-        private System.Windows.Forms.DataGridView TableView;
-        private System.Windows.Forms.Label StatusLabel;
-        private System.Windows.Forms.Label StatusValueLabel;
+        private System.Windows.Forms.Button ShowButton;
         private System.Windows.Forms.Panel MainPanel;
+        private System.Windows.Forms.RichTextBox TableBox;
+        private System.Windows.Forms.Button DeleteButton;
+        private System.Windows.Forms.Button InsertButton;
     }
 }
