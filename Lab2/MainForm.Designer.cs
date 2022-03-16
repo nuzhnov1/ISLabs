@@ -1,4 +1,4 @@
-﻿namespace Lab1
+﻿namespace Lab2
 {
     partial class MainForm
     {
@@ -28,13 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.ShowButton = new System.Windows.Forms.Button();
             this.MainPanel = new System.Windows.Forms.Panel();
+            this.TableView = new System.Windows.Forms.DataGridView();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.InsertButton = new System.Windows.Forms.Button();
-            this.TableBox = new System.Windows.Forms.RichTextBox();
             this.MainPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TableView)).BeginInit();
             this.SuspendLayout();
             // 
             // ShowButton
@@ -58,9 +61,9 @@
             // 
             // MainPanel
             // 
+            this.MainPanel.Controls.Add(this.TableView);
             this.MainPanel.Controls.Add(this.DeleteButton);
             this.MainPanel.Controls.Add(this.InsertButton);
-            this.MainPanel.Controls.Add(this.TableBox);
             this.MainPanel.Controls.Add(this.ShowButton);
             this.MainPanel.Location = new System.Drawing.Point(14, 14);
             this.MainPanel.Margin = new System.Windows.Forms.Padding(5);
@@ -68,6 +71,48 @@
             this.MainPanel.Size = new System.Drawing.Size(1001, 547);
             this.MainPanel.TabIndex = 18;
             this.MainPanel.Click += new System.EventHandler(this.EnviromentClick);
+            // 
+            // TableView
+            // 
+            this.TableView.AllowUserToAddRows = false;
+            this.TableView.AllowUserToDeleteRows = false;
+            this.TableView.AllowUserToResizeColumns = false;
+            this.TableView.AllowUserToResizeRows = false;
+            this.TableView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.TableView.BackgroundColor = System.Drawing.SystemColors.ControlLight;
+            this.TableView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.TableView.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
+            this.TableView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            this.TableView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.TableView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.TableView.Cursor = System.Windows.Forms.Cursors.Default;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.TableView.DefaultCellStyle = dataGridViewCellStyle2;
+            this.TableView.Enabled = false;
+            this.TableView.EnableHeadersVisualStyles = false;
+            this.TableView.Location = new System.Drawing.Point(0, 0);
+            this.TableView.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.TableView.Name = "TableView";
+            this.TableView.ReadOnly = true;
+            this.TableView.RowHeadersVisible = false;
+            this.TableView.RowTemplate.Height = 25;
+            this.TableView.ShowCellToolTips = false;
+            this.TableView.ShowEditingIcon = false;
+            this.TableView.Size = new System.Drawing.Size(828, 547);
+            this.TableView.TabIndex = 20;
+            this.TableView.Click += new System.EventHandler(this.EnviromentClick);
             // 
             // DeleteButton
             // 
@@ -87,6 +132,7 @@
             this.DeleteButton.TabIndex = 19;
             this.DeleteButton.Text = "Удалить";
             this.DeleteButton.UseVisualStyleBackColor = false;
+            this.DeleteButton.Click += new System.EventHandler(this.DeleteButtonClick);
             // 
             // InsertButton
             // 
@@ -106,18 +152,7 @@
             this.InsertButton.TabIndex = 18;
             this.InsertButton.Text = "Вставить";
             this.InsertButton.UseVisualStyleBackColor = false;
-            // 
-            // TableBox
-            // 
-            this.TableBox.BackColor = System.Drawing.Color.Silver;
-            this.TableBox.Enabled = false;
-            this.TableBox.Location = new System.Drawing.Point(0, 0);
-            this.TableBox.Margin = new System.Windows.Forms.Padding(10, 0, 10, 10);
-            this.TableBox.Name = "TableBox";
-            this.TableBox.Size = new System.Drawing.Size(828, 547);
-            this.TableBox.TabIndex = 17;
-            this.TableBox.Text = "";
-            this.TableBox.Click += new System.EventHandler(this.EnviromentClick);
+            this.InsertButton.Click += new System.EventHandler(this.InsertButtonClick);
             // 
             // MainForm
             // 
@@ -134,6 +169,7 @@
             this.Text = "ИС. Лабораторная работа №2. Команда - HydraSquad.";
             this.MainPanel.ResumeLayout(false);
             this.MainPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TableView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -142,8 +178,8 @@
 
         private System.Windows.Forms.Button ShowButton;
         private System.Windows.Forms.Panel MainPanel;
-        private System.Windows.Forms.RichTextBox TableBox;
         private System.Windows.Forms.Button DeleteButton;
         private System.Windows.Forms.Button InsertButton;
+        private System.Windows.Forms.DataGridView TableView;
     }
 }

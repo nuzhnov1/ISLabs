@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
 using System.Data.Common;
 using System.Drawing;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Npgsql;
 
-namespace Lab1
+namespace Lab2
 {
     public partial class MainForm : Form
     {
@@ -26,15 +27,21 @@ namespace Lab1
         // Строка соединения с БД
         private readonly string ConnectionString;
 
+        // Дочернее окно
+        private readonly InfoForm InfoForm;
+
         public MainForm()
         {
             InitializeComponent();
+            
             this.Connection = new NpgsqlConnection();
             this.ConnectionString = String.Format(
                 "Host = {0}; Port = {1}; Database = {2}; " +
                 "Username = {3}; Password = {4};",
                 HOST, PORT, DATABASE, USERNAME, PASSWORD
             );
+            this.InfoForm = new InfoForm();
+            this.AddOwnedForm(this.InfoForm);
         }
 
         /// <summary>
@@ -92,10 +99,12 @@ namespace Lab1
                 
                 await using var query = new NpgsqlCommand(queryString, this.Connection);
                 await using var reader = await query.ExecuteReaderAsync();
+                var table = new DataTable("Orders");
 
-                PrintTable(reader);
+                table.Load(reader);
+                this.TableView.DataSource = table;
             }
-            catch (DbException exception)
+            catch (Exception exception)
             {
                 MessageBox.Show(
                     exception.Message, "Ошибка извлечения данных",
@@ -105,40 +114,25 @@ namespace Lab1
                 return;
             }
 
-            this.TableBox.Enabled = true;
+            this.TableView.Enabled = true;
             this.InsertButton.Enabled = true;
             this.DeleteButton.Enabled = true;
             this.ShowButton.Enabled = false;
         }
 
-        private async void PrintTable(NpgsqlDataReader reader)
-        {
-            StringBuilder result = new StringBuilder(@"{\rtf1 ");
+        /// <summary>
+        /// Событие вставки строки в таблицу БД
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший данное событие</param>
+        /// <param name="e">Аргументы события</param>
+        private void InsertButtonClick(object sender, EventArgs e) => this.InfoForm.ShowDialog();
 
-            this.TableBox.Clear();
-
-            // Добавление заголовка таблицы
-            result.Append(@"\trowd");
-            for (int i = 0; i < reader.FieldCount; i++)
-                result.Append(@"\cellx" + (i + 1) * 1600 + @"\trrh400");
-            for (int i = 0; i < reader.FieldCount; i++)
-                result.Append(@"\intbl \b " + reader.GetName(i) + @" \b0 \cell");
-            result.Append(@"\row");
-
-            // Добавление содержимого таблицы
-            while (await reader.ReadAsync())
-            {
-                result.Append(@"\trowd");
-                for (int i = 0; i < reader.FieldCount; i++)
-                    result.Append(@"\cellx" + (i + 1) * 1600 + @"\trrh400");
-                for (int i = 0; i < reader.FieldCount; i++)
-                    result.Append(@"\intbl " + reader[i].ToString() + @" \cell");
-                result.Append(@"\row");
-            }
-
-            result.Append(@"\pard}");
-            this.TableBox.Rtf = result.ToString();
-        }
+        /// <summary>
+        /// Событие удаления строки из таблицы БД
+        /// </summary>
+        /// <param name="sender">Объект, вызвавший данное событие</param>
+        /// <param name="e">Аргументы события</param>
+        private void DeleteButtonClick(object sender, EventArgs e) => this.InfoForm.ShowDialog();
 
         private void EnviromentClick(object sender, EventArgs e) => ((Control)sender).Select();
     }
