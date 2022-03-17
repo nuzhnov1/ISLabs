@@ -124,7 +124,7 @@
             this.User.Name = "User";
             this.User.Size = new System.Drawing.Size(228, 26);
             this.User.TabIndex = 22;
-            this.User.Text = "postgres";
+            this.User.Text = "admin";
             this.User.Click += new System.EventHandler(this.EnviromentClick);
             // 
             // Password
@@ -145,7 +145,7 @@
             this.DBName.Name = "DBName";
             this.DBName.Size = new System.Drawing.Size(228, 26);
             this.DBName.TabIndex = 21;
-            this.DBName.Text = "postgres";
+            this.DBName.Text = "restaurant";
             this.DBName.Click += new System.EventHandler(this.EnviromentClick);
             // 
             // PortLabel

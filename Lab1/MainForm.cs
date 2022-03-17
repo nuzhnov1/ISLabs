@@ -58,7 +58,7 @@ namespace Lab1
                 this.CloseButton.Enabled = false;
                 this.ExecButton.Enabled = false;
                 this.QueryBox.Enabled = false;
-                this.TableView.Visible = false;
+                this.TableView.Enabled = false;
 
                 this.StatusValueLabel.Text = "не инициализировано";
                 this.StatusValueLabel.ForeColor = Color.Black;
@@ -68,23 +68,32 @@ namespace Lab1
                 try
                 {
                     this.Connection.ConnectionString = this.ConnectionString;
+
+                    this.OpenButton.Enabled = true;
+                    this.CloseButton.Enabled = false;
+                    this.ExecButton.Enabled = false;
+                    this.QueryBox.Enabled = false;
+                    this.TableView.Enabled = false;
+
+                    this.StatusValueLabel.Text = "инициализировано";
+                    this.StatusValueLabel.ForeColor = Color.Green;
                 }
                 catch (NpgsqlException exception)
                 {
+                    this.OpenButton.Enabled = false;
+                    this.CloseButton.Enabled = false;
+                    this.ExecButton.Enabled = false;
+                    this.QueryBox.Enabled = false;
+                    this.TableView.Enabled = false;
+
+                    this.StatusValueLabel.Text = "не инициализировано";
+                    this.StatusValueLabel.ForeColor = Color.Black;
+
                     MessageBox.Show(
                         exception.Message, "Ошибка инициализации",
                         MessageBoxButtons.OK, MessageBoxIcon.Error
                     );
                 }
-
-                this.OpenButton.Enabled = true;
-                this.CloseButton.Enabled = false;
-                this.ExecButton.Enabled = false;
-                this.QueryBox.Enabled = false;
-                this.TableView.Visible = false;
-
-                this.StatusValueLabel.Text = "инициализировано";
-                this.StatusValueLabel.ForeColor = Color.Green;
             }
         }
 
@@ -102,9 +111,9 @@ namespace Lab1
                 this.InitButton.Enabled = false;
                 this.OpenButton.Enabled = false;
                 this.CloseButton.Enabled = true;
-                this.ExecButton.Enabled = this.QueryBox.Text != "";
+                this.ExecButton.Enabled = true;
                 this.QueryBox.Enabled = true;
-                this.TableView.Visible = true;
+                this.TableView.Enabled = true;
 
                 this.StatusValueLabel.Text = "открыто";
                 this.StatusValueLabel.ForeColor = Color.Yellow;
@@ -129,15 +138,17 @@ namespace Lab1
             {
                 await this.Connection.CloseAsync();
 
-                this.StatusValueLabel.Text = "закрыто";
-                this.StatusValueLabel.ForeColor = Color.Red;
-
                 this.InitButton.Enabled = true;
                 this.OpenButton.Enabled = true;
                 this.CloseButton.Enabled = false;
                 this.ExecButton.Enabled = false;
+                this.QueryBox.Text = "";
                 this.QueryBox.Enabled = false;
-                this.TableView.Visible = false;
+                this.TableView.Enabled = false;
+                this.TableView.DataSource = new DataTable();
+
+                this.StatusValueLabel.Text = "закрыто";
+                this.StatusValueLabel.ForeColor = Color.Red;
             }
             catch (NpgsqlException exception)
             {
@@ -155,6 +166,9 @@ namespace Lab1
         /// <param name="e"></param>
         private async void ExecuteButtonClick(object sender, EventArgs e)
         {
+            if (this.QueryBox.Text == "")
+                return;
+
             try
             {
                 await using var query = new NpgsqlCommand(this.QueryBox.Text, this.Connection);
@@ -182,6 +196,5 @@ namespace Lab1
         }
 
         private void EnviromentClick(object sender, EventArgs e) => ((Control)sender).Select();
-        private void QueryBoxLostFocus(object sender, EventArgs e) => this.ExecButton.Enabled = this.QueryBox.Text != "";
     }
 }
