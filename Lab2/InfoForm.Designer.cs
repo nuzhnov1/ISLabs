@@ -55,6 +55,30 @@ namespace Lab2
             this.OkButton1.UseVisualStyleBackColor = false;
             this.OkButton1.Click += new System.EventHandler(this.ButtonClick);
             // 
+            // ImagePanel
+            // 
+            this.ImagePanel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ImagePanel.BackgroundImage")));
+            this.ImagePanel.Location = new System.Drawing.Point(89, 56);
+            this.ImagePanel.Name = "ImagePanel";
+            this.ImagePanel.Size = new System.Drawing.Size(300, 301);
+            this.ImagePanel.TabIndex = 10;
+            this.ImagePanel.Click += new System.EventHandler(this.EnviromentClick);
+            // 
+            // InfoLabel
+            // 
+            this.InfoLabel.AutoSize = true;
+            this.InfoLabel.BackColor = System.Drawing.Color.Black;
+            this.InfoLabel.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.InfoLabel.ForeColor = System.Drawing.Color.Chartreuse;
+            this.InfoLabel.Location = new System.Drawing.Point(170, 14);
+            this.InfoLabel.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
+            this.InfoLabel.Name = "InfoLabel";
+            this.InfoLabel.Size = new System.Drawing.Size(153, 21);
+            this.InfoLabel.TabIndex = 11;
+            this.InfoLabel.Text = "Поставьте защиту";
+            this.InfoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.InfoLabel.Click += new System.EventHandler(this.EnviromentClick);
+            // 
             // OkButton2
             // 
             this.OkButton2.AutoSize = true;
@@ -74,42 +98,19 @@ namespace Lab2
             this.OkButton2.UseVisualStyleBackColor = false;
             this.OkButton2.Click += new System.EventHandler(this.ButtonClick);
             // 
-            // ImagePanel
-            // 
-            this.ImagePanel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("ImagePanel.BackgroundImage")));
-            this.ImagePanel.Location = new System.Drawing.Point(89, 56);
-            this.ImagePanel.Name = "ImagePanel";
-            this.ImagePanel.Size = new System.Drawing.Size(300, 301);
-            this.ImagePanel.TabIndex = 10;
-            this.ImagePanel.Click += new System.EventHandler(this.EnviromentClick);
-            // 
-            // InfoLabel
-            // 
-            this.InfoLabel.AutoSize = true;
-            this.InfoLabel.BackColor = System.Drawing.Color.Black;
-            this.InfoLabel.Font = new System.Drawing.Font("Times New Roman", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.InfoLabel.ForeColor = System.Drawing.Color.Chartreuse;
-            this.InfoLabel.Location = new System.Drawing.Point(170, 14);
-            this.InfoLabel.Margin = new System.Windows.Forms.Padding(0, 5, 0, 0);
-            this.InfoLabel.Name = "InfoLabel";
-            this.InfoLabel.Size = new System.Drawing.Size(159, 21);
-            this.InfoLabel.TabIndex = 11;
-            this.InfoLabel.Text = "Поставьте защиту";
-            this.InfoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.InfoLabel.Click += new System.EventHandler(this.EnviromentClick);
-            // 
             // InfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(476, 437);
+            this.ControlBox = false;
             this.Controls.Add(this.OkButton2);
             this.Controls.Add(this.InfoLabel);
             this.Controls.Add(this.ImagePanel);
             this.Controls.Add(this.OkButton1);
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "InfoForm";
             this.Text = "Важная информация";
             this.ResumeLayout(false);
