@@ -75,7 +75,7 @@ namespace Lab3
 
                 return;
             }
-            this.Connection.CloseAsync();
+            await this.Connection.CloseAsync();
             this.TableView.Enabled = true;
             this.InsertButton.Enabled = true;
             this.DeleteButton.Enabled = true;

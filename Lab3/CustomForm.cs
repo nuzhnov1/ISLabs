@@ -13,10 +13,11 @@ namespace Lab3
 {
     public partial class CustomForm : Form
     {
-        static public DataTable returnTable = new DataTable();
+        static public DataTable? returnTable;
         public CustomForm()
         {
             InitializeComponent();
+            returnTable = new DataTable();
         }
 
         private void button2_Click(object sender, EventArgs e)=>this.Close();
@@ -28,7 +29,6 @@ namespace Lab3
                 var connection = new NpgsqlConnection(ServerInfo.GetConnectionString());
                 connection.OpenAsync();
                 var query = new NpgsqlCommand(textBox1.Text, connection);
-                returnTable = new DataTable();
                 returnTable.Load(query.ExecuteReader());
                 connection.CloseAsync();
             }
