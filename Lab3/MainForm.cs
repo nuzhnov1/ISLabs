@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,7 +26,7 @@ namespace Lab3
         public MainForm()
         {
             InitializeComponent();
-            
+
             this.Connection = new NpgsqlConnection();
             this.ConnectionString = ServerInfo.GetConnectionString();
             this.InfoForm = new InfoForm();
@@ -57,10 +58,10 @@ namespace Lab3
             try
             {
                 string queryString = @"SELECT * FROM dishes";
-                
+
                 await using var query = new NpgsqlCommand(queryString, this.Connection);
                 await using var reader = await query.ExecuteReaderAsync();
-                var table = new DataTable("Orders");
+                var table = new DataTable();
 
                 table.Load(reader);
                 this.TableView.DataSource = table;
@@ -78,6 +79,7 @@ namespace Lab3
             this.TableView.Enabled = true;
             this.InsertButton.Enabled = true;
             this.DeleteButton.Enabled = true;
+            customButton.Enabled = true;
         }
 
         /// <summary>
@@ -87,7 +89,7 @@ namespace Lab3
         /// <param name="e">Аргументы события</param>
         private void InsertButtonClick(object sender, EventArgs e)
         {
-            var addWindow= new AddForm();
+            var addWindow = new AddForm();
             addWindow.ShowDialog();
             ShowButtonClick(this, EventArgs.Empty);
         }
@@ -99,12 +101,19 @@ namespace Lab3
         /// <param name="e">Аргументы события</param>
         private void DeleteButtonClick(object sender, EventArgs e)
         {
-            var deleteWindow= new DeleteForm();
+            var deleteWindow = new DeleteForm();
             deleteWindow.ShowDialog();
             ShowButtonClick(this, EventArgs.Empty);
         }
 
         private void EnviromentClick(object sender, EventArgs e) => ((Control)sender).Select();
 
+        private void customButton_Click(object sender, EventArgs e)
+        {
+            var customForm = new CustomForm();
+            customForm.ShowDialog();
+            if (CustomForm.returnTable.Rows.Count != 0) TableView.DataSource = CustomForm.returnTable;
+            else ShowButtonClick(this, EventArgs.Empty);
+        }
     }
 }

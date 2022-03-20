@@ -84,6 +84,7 @@ namespace Lab4
             this.TableView.Enabled = true;
             this.InsertButton.Enabled = true;
             this.DeleteButton.Enabled = true;
+            customButton.Enabled = true;
         }
 
         /// <summary>
@@ -112,5 +113,12 @@ namespace Lab4
 
         private void EnviromentClick(object sender, EventArgs e) => ((Control)sender).Select();
 
+        private void customButton_Click(object sender, EventArgs e)
+        {
+            var customForm = new CustomForm();
+            customForm.ShowDialog();
+            if (CustomForm.returnTable.Rows.Count != 0) TableView.DataSource = CustomForm.returnTable;
+            else ShowButtonClick(this, EventArgs.Empty);
+        }
     }
 }

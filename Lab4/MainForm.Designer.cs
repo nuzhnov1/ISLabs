@@ -36,6 +36,7 @@
             this.TableView = new System.Windows.Forms.DataGridView();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.InsertButton = new System.Windows.Forms.Button();
+            this.customButton = new System.Windows.Forms.Button();
             this.MainPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TableView)).BeginInit();
             this.SuspendLayout();
@@ -61,6 +62,7 @@
             // 
             // MainPanel
             // 
+            this.MainPanel.Controls.Add(this.customButton);
             this.MainPanel.Controls.Add(this.TableView);
             this.MainPanel.Controls.Add(this.DeleteButton);
             this.MainPanel.Controls.Add(this.InsertButton);
@@ -153,6 +155,26 @@
             this.InsertButton.UseVisualStyleBackColor = false;
             this.InsertButton.Click += new System.EventHandler(this.InsertButtonClick);
             // 
+            // customButton
+            // 
+            this.customButton.AutoSize = true;
+            this.customButton.BackColor = System.Drawing.SystemColors.Desktop;
+            this.customButton.Enabled = false;
+            this.customButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrchid;
+            this.customButton.FlatAppearance.BorderSize = 2;
+            this.customButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.customButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.customButton.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.customButton.ImageKey = "(нет)";
+            this.customButton.Location = new System.Drawing.Point(838, 240);
+            this.customButton.Margin = new System.Windows.Forms.Padding(0, 0, 10, 20);
+            this.customButton.Name = "customButton";
+            this.customButton.Size = new System.Drawing.Size(163, 50);
+            this.customButton.TabIndex = 22;
+            this.customButton.Text = "Запрос";
+            this.customButton.UseVisualStyleBackColor = false;
+            this.customButton.Click += new System.EventHandler(this.customButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
@@ -180,5 +202,6 @@
         private System.Windows.Forms.Button DeleteButton;
         private System.Windows.Forms.Button InsertButton;
         private System.Windows.Forms.DataGridView TableView;
+        private System.Windows.Forms.Button customButton;
     }
 }
