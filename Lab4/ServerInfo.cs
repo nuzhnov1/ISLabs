@@ -9,9 +9,9 @@ namespace Lab4
     static class ServerInfo
     {
         static string host = "localhost";
-        static string port = "1100";
+        static string port = "5432";
         static string datebase = "restaurant";
-        static string username = "postgres";
+        static string username = "super_admin";
         static string password = "0000";
 
         public static string GetConnectionString() 
