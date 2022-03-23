@@ -63,7 +63,7 @@ namespace Lab5
                 adapter =new NpgsqlDataAdapter(queryString,this.Connection);
                 dataSet = new DataSet();
                 dataTable=new DataTable();
-
+                TableView.ForeColor = Color.Black;
                 dataSet.Reset();
                 adapter.Fill(dataSet);
                 dataTable=dataSet.Tables[0];
@@ -125,9 +125,13 @@ namespace Lab5
         {
             try
             {
+                var chagesTable = new DataTable();
+                chagesTable = dataTable.GetChanges(DataRowState.Modified);
                 adapter.UpdateCommand = new NpgsqlCommandBuilder(adapter).GetUpdateCommand();
                 adapter.Update(dataTable);
-                ShowButtonClick(this, EventArgs.Empty);
+                TableView.ForeColor = Color.Green;
+                TableView.DataSource=chagesTable;
+                TableView.Columns[1].AutoSizeMode=DataGridViewAutoSizeColumnMode.Fill;
             }
             catch (Exception ex)
             {
