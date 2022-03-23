@@ -1,4 +1,4 @@
-﻿namespace Lab4
+﻿namespace Lab5
 {
     partial class MainForm
     {
@@ -33,6 +33,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.ShowButton = new System.Windows.Forms.Button();
             this.MainPanel = new System.Windows.Forms.Panel();
+            this.updateButton = new System.Windows.Forms.Button();
             this.customButton = new System.Windows.Forms.Button();
             this.TableView = new System.Windows.Forms.DataGridView();
             this.DeleteButton = new System.Windows.Forms.Button();
@@ -62,6 +63,7 @@
             // 
             // MainPanel
             // 
+            this.MainPanel.Controls.Add(this.updateButton);
             this.MainPanel.Controls.Add(this.customButton);
             this.MainPanel.Controls.Add(this.TableView);
             this.MainPanel.Controls.Add(this.DeleteButton);
@@ -74,6 +76,26 @@
             this.MainPanel.TabIndex = 18;
             this.MainPanel.Click += new System.EventHandler(this.EnviromentClick);
             // 
+            // updateButton
+            // 
+            this.updateButton.AutoSize = true;
+            this.updateButton.BackColor = System.Drawing.SystemColors.Desktop;
+            this.updateButton.Enabled = false;
+            this.updateButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrchid;
+            this.updateButton.FlatAppearance.BorderSize = 2;
+            this.updateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.updateButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.updateButton.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.updateButton.ImageKey = "(нет)";
+            this.updateButton.Location = new System.Drawing.Point(838, 240);
+            this.updateButton.Margin = new System.Windows.Forms.Padding(0, 0, 10, 20);
+            this.updateButton.Name = "updateButton";
+            this.updateButton.Size = new System.Drawing.Size(163, 50);
+            this.updateButton.TabIndex = 23;
+            this.updateButton.Text = "Обновить";
+            this.updateButton.UseVisualStyleBackColor = false;
+            this.updateButton.Click += new System.EventHandler(this.button1_Click);
+            // 
             // customButton
             // 
             this.customButton.AutoSize = true;
@@ -85,7 +107,7 @@
             this.customButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.customButton.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.customButton.ImageKey = "(нет)";
-            this.customButton.Location = new System.Drawing.Point(838, 240);
+            this.customButton.Location = new System.Drawing.Point(838, 310);
             this.customButton.Margin = new System.Windows.Forms.Padding(0, 0, 10, 20);
             this.customButton.Name = "customButton";
             this.customButton.Size = new System.Drawing.Size(163, 50);
@@ -126,7 +148,6 @@
             this.TableView.Location = new System.Drawing.Point(0, 0);
             this.TableView.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.TableView.Name = "TableView";
-            this.TableView.ReadOnly = true;
             this.TableView.RowHeadersVisible = false;
             this.TableView.RowTemplate.Height = 25;
             this.TableView.ShowCellToolTips = false;
@@ -203,5 +224,6 @@
         private System.Windows.Forms.Button InsertButton;
         private System.Windows.Forms.DataGridView TableView;
         private System.Windows.Forms.Button customButton;
+        private System.Windows.Forms.Button updateButton;
     }
 }
