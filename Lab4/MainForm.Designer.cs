@@ -187,7 +187,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Text = "ИС. Лабораторная работа №2. Команда - HydraSquad.";
+            this.Text = "ИС. Лабораторная работа №4. Команда - HydraSquad.";
             this.MainPanel.ResumeLayout(false);
             this.MainPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TableView)).EndInit();
