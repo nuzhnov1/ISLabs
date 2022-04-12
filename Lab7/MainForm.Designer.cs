@@ -1,4 +1,4 @@
-﻿namespace Lab3
+﻿namespace Lab7
 {
     partial class MainForm
     {
@@ -33,6 +33,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.ShowButton = new System.Windows.Forms.Button();
             this.MainPanel = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.updateButton = new System.Windows.Forms.Button();
             this.customButton = new System.Windows.Forms.Button();
             this.TableView = new System.Windows.Forms.DataGridView();
             this.DeleteButton = new System.Windows.Forms.Button();
@@ -62,6 +65,9 @@
             // 
             // MainPanel
             // 
+            this.MainPanel.Controls.Add(this.button2);
+            this.MainPanel.Controls.Add(this.button1);
+            this.MainPanel.Controls.Add(this.updateButton);
             this.MainPanel.Controls.Add(this.customButton);
             this.MainPanel.Controls.Add(this.TableView);
             this.MainPanel.Controls.Add(this.DeleteButton);
@@ -74,6 +80,66 @@
             this.MainPanel.TabIndex = 18;
             this.MainPanel.Click += new System.EventHandler(this.EnviromentClick);
             // 
+            // button2
+            // 
+            this.button2.AutoSize = true;
+            this.button2.BackColor = System.Drawing.SystemColors.Desktop;
+            this.button2.Enabled = false;
+            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrchid;
+            this.button2.FlatAppearance.BorderSize = 2;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button2.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.button2.ImageKey = "(нет)";
+            this.button2.Location = new System.Drawing.Point(838, 427);
+            this.button2.Margin = new System.Windows.Forms.Padding(0, 0, 10, 20);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(163, 50);
+            this.button2.TabIndex = 25;
+            this.button2.Text = "Загрузить базу";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.AutoSize = true;
+            this.button1.BackColor = System.Drawing.SystemColors.Desktop;
+            this.button1.Enabled = false;
+            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrchid;
+            this.button1.FlatAppearance.BorderSize = 2;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.button1.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.button1.ImageKey = "(нет)";
+            this.button1.Location = new System.Drawing.Point(838, 497);
+            this.button1.Margin = new System.Windows.Forms.Padding(0, 0, 10, 20);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(163, 50);
+            this.button1.TabIndex = 24;
+            this.button1.Text = "Выгрузить базу";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // updateButton
+            // 
+            this.updateButton.AutoSize = true;
+            this.updateButton.BackColor = System.Drawing.SystemColors.Desktop;
+            this.updateButton.Enabled = false;
+            this.updateButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrchid;
+            this.updateButton.FlatAppearance.BorderSize = 2;
+            this.updateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.updateButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.updateButton.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.updateButton.ImageKey = "(нет)";
+            this.updateButton.Location = new System.Drawing.Point(838, 240);
+            this.updateButton.Margin = new System.Windows.Forms.Padding(0, 0, 10, 20);
+            this.updateButton.Name = "updateButton";
+            this.updateButton.Size = new System.Drawing.Size(163, 50);
+            this.updateButton.TabIndex = 23;
+            this.updateButton.Text = "Обновить";
+            this.updateButton.UseVisualStyleBackColor = false;
+            this.updateButton.Click += new System.EventHandler(this.button1_Click);
+            // 
             // customButton
             // 
             this.customButton.AutoSize = true;
@@ -85,11 +151,11 @@
             this.customButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.customButton.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.customButton.ImageKey = "(нет)";
-            this.customButton.Location = new System.Drawing.Point(838, 240);
+            this.customButton.Location = new System.Drawing.Point(838, 310);
             this.customButton.Margin = new System.Windows.Forms.Padding(0, 0, 10, 20);
             this.customButton.Name = "customButton";
             this.customButton.Size = new System.Drawing.Size(163, 50);
-            this.customButton.TabIndex = 21;
+            this.customButton.TabIndex = 22;
             this.customButton.Text = "Запрос";
             this.customButton.UseVisualStyleBackColor = false;
             this.customButton.Click += new System.EventHandler(this.customButton_Click);
@@ -126,7 +192,6 @@
             this.TableView.Location = new System.Drawing.Point(0, 0);
             this.TableView.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.TableView.Name = "TableView";
-            this.TableView.ReadOnly = true;
             this.TableView.RowHeadersVisible = false;
             this.TableView.RowTemplate.Height = 25;
             this.TableView.ShowCellToolTips = false;
@@ -187,7 +252,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Text = "ИС. Лабораторная работа №3. Команда - HydraSquad.";
+            this.Text = "ИС. Лабораторная работа №7. Команда - HydraSquad.";
             this.MainPanel.ResumeLayout(false);
             this.MainPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TableView)).EndInit();
@@ -203,5 +268,8 @@
         private System.Windows.Forms.Button InsertButton;
         private System.Windows.Forms.DataGridView TableView;
         private System.Windows.Forms.Button customButton;
+        private System.Windows.Forms.Button updateButton;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
     }
 }
