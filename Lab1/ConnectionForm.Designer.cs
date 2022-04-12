@@ -126,6 +126,7 @@
             this.User.TabIndex = 22;
             this.User.Text = "admin";
             this.User.Click += new System.EventHandler(this.EnviromentClick);
+            this.User.TextChanged += new System.EventHandler(this.User_TextChanged);
             // 
             // Password
             // 

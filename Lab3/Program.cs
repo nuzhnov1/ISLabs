@@ -4,13 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Lab2
+namespace Lab3
 {
     static class Program
     {
         /// <summary>
         ///  The main entry point for the application.
-        // test
+        /// </summary>
         [STAThread]
         static void Main()
         {
