@@ -13,67 +13,78 @@ namespace Lab6
 {
     public partial class MainForm : Form
     {
-        NpgsqlConnection connection= new NpgsqlConnection(ServerInfo.GetConnectionString());
+        private readonly NpgsqlConnection Connection;
+        
         public MainForm()
         {
             InitializeComponent();
+            this.Connection = new NpgsqlConnection(ServerInfo.GetConnectionString());
 
             try
             {
-                connection.Open();
+                this.Connection.Open();
 
-                string query = "SELECT datname From pg_database WHERE  datistemplate=false";
-                var adapter = new NpgsqlDataAdapter(query, connection);
-                var dataSet = new DataSet();
+                string queryString = "SELECT datname FROM pg_database WHERE datistemplate = false";
+                var query = new NpgsqlCommand(queryString, this.Connection);
+                var reader = query.ExecuteReader();
+                var table = new DataTable();
 
-                adapter.Fill(dataSet);
+                table.Load(reader);
 
-                foreach (DataRow row in dataSet.Tables[0].Rows)
+                foreach (DataRow row in table.Rows)
                 {
-                    treeView1.Nodes.Add(new TreeNode(row[0].ToString()));
+                    this.TreeView.Nodes.Add(new TreeNode(row["datname"].ToString()));
                 }
             }
-            catch (SystemException exception)
+            catch (SystemException error)
             {
                 MessageBox.Show(
-                    exception.Message, "Ошибка подключения к базе данных",
+                    $"Ошибка подключения к базе данных: {error.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error
                 );
-
             }
-
-            connection.Close();
         }
 
 
-        private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        private async void TreeViewNodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs eventArgs)
         {
-            connection.Open();
-
-            if (e.Node.Parent!=null)
+            try
             {
-                connection.ChangeDatabase(e.Node.Parent.Text);
-                string query = "select * from " + e.Node.Text;
-                var command = new NpgsqlCommand(query, connection);
-                var dataSet = new DataSet();
-                var adapter= new NpgsqlDataAdapter(command);
-
-                adapter.Fill(dataSet);
-                dataGridView1.DataSource=dataSet.Tables[0];
-            }
-            else
-            {
-                connection.ChangeDatabase(e.Node.Text);
-                DataTable dbTables = connection.GetSchema("Tables");   
-
-                foreach (DataRow row in dbTables.Rows)
+                // Если выбрана одна из таблиц базы данных:
+                if (eventArgs.Node.Parent != null)
                 {
-                    treeView1.Nodes[e.Node.Index].Nodes.Add(new TreeNode(row["table_name"].ToString()));
+                    await this.Connection.ChangeDatabaseAsync(eventArgs.Node.Parent.Text);
+
+                    string queryString = "SELECT * FROM " + eventArgs.Node.Text;
+                    var query = new NpgsqlCommand(queryString, this.Connection);
+                    var reader = await query.ExecuteReaderAsync();
+                    var table = new DataTable();
+
+                    table.Load(reader);
+                    this.TableView.DataSource = table;
+                }
+                // Если выбрана база данных:
+                else
+                {
+                    await this.Connection.ChangeDatabaseAsync(eventArgs.Node.Text);
+                    DataTable schema = await this.Connection.GetSchemaAsync("Tables");
+
+                    this.TreeView.Nodes[eventArgs.Node.Index].Nodes.Clear();
+                    foreach (DataRow row in schema.Rows)
+                    {
+                        this.TreeView.Nodes[eventArgs.Node.Index].Nodes.Add(new TreeNode(row["table_name"].ToString()));
+                    }
                 }
             }
-
-            connection.Close();
+            catch (SystemException error)
+            {
+                MessageBox.Show(
+                    $"Ошибка при получении данных: {error.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error
+                );
+            }
         }
 
+        private void EnviromentClick(object sender, EventArgs e) => ((Control)sender).Select();
     }
 }

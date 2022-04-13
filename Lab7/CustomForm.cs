@@ -9,34 +9,42 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Npgsql;    
 
-namespace Lab7
+namespace Lab3
 {
     public partial class CustomForm : Form
     {
-        static public DataTable? returnTable;
+        public DataTable ReturnTable { get; private set; }
+
         public CustomForm()
         {
             InitializeComponent();
-            returnTable = new DataTable();
+            this.ReturnTable = new DataTable();
         }
 
-        private void button2_Click(object sender, EventArgs e)=>this.Close();
-
-        private void button1_Click(object sender, EventArgs e)
+        private async void SubmitButtonClick(object sender, EventArgs e)
         {
             try
             {
                 var connection = new NpgsqlConnection(ServerInfo.GetConnectionString());
-                connection.OpenAsync();
-                var query = new NpgsqlCommand(textBox1.Text, connection);
-                returnTable.Load(query.ExecuteReader());
-                connection.CloseAsync();
+                await connection.OpenAsync();
+                
+                var query = new NpgsqlCommand(this.QueryBox.Text, connection);
+                this.ReturnTable.Load(await query.ExecuteReaderAsync());
+                
+                await connection.CloseAsync();
+                this.Close();
             }
-            catch (Exception)
+            catch (SystemException error)
             {
-                MessageBox.Show("Ошибка", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    $"Ошибка при выполнении запроса: {error.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error
+                );
             }
-            this.Close();
         }
+
+        private void CancelButtonClick(object sender, EventArgs e) => this.Close();
+
+        private void EnviromentClick(object sender, EventArgs e) => ((Control)sender).Select();
     }
 }

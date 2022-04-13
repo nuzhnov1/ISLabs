@@ -159,9 +159,9 @@ namespace Lab7
                     //var process1 = new Process();
                     var process2 = new Process();
                     var process3 = new Process();
-                    string s1 = @"C:\Program Files\PostgreSQL\14\bin\dropdb.exe";
-                    string s2 = @"C:\Program Files\PostgreSQL\14\bin\createdb.exe";
-                    string s3 = @"C:\Program Files\PostgreSQL\14\bin\pg_restore.exe";
+                    string s1 = @"C:\Program Files\PostgreSQL\11\bin\dropdb.exe";
+                    string s2 = @"C:\Program Files\PostgreSQL\11\bin\createdb.exe";
+                    string s3 = @"C:\Program Files\PostgreSQL\11\bin\pg_restore.exe";
                     string arg1 = String.Format(@"-p {0} -U {1} {2}", ServerInfo.port, ServerInfo.username, ServerInfo.datebase);
                     string arg3 = String.Format(@"-p {0} -U {1} -d {2} -v " + filePath,ServerInfo.port,ServerInfo.username,ServerInfo.datebase);
                     //process1.StartInfo.EnvironmentVariables.Add("PGPASSWORD", ServerInfo.password);
@@ -208,11 +208,11 @@ namespace Lab7
                     string s1 = "> " + filePath + @"\lr17.sql";
                     var process = new Process();
                     //process.StartInfo.EnvironmentVariables.Add("PGPASSWORD", ServerInfo.password);
-                    process.StartInfo.FileName = @"C:\Program Files\PostgreSQL\14\bin\pg_dump.exe";
+                    process.StartInfo.FileName = @"C:\Program Files\PostgreSQL\11\bin\pg_dump.exe";
                     process.StartInfo.ArgumentList.Add("-d " + ServerInfo.datebase);
                     process.StartInfo.ArgumentList.Add("-p " + ServerInfo.port);
                     process.StartInfo.ArgumentList.Add("-U " + ServerInfo.username);
-                    //process.StartInfo.ArgumentList.Add(s1);
+                    process.StartInfo.ArgumentList.Add(s1);
                     process.Start();
                     process.WaitForExit();
                 }

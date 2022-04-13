@@ -8,11 +8,11 @@ namespace Lab4
 {
     static class ServerInfo
     {
-        static string host = "localhost";
-        static string port = "5432";
-        static string datebase = "restaurant";
-        static string username = "super_admin";
-        static string password = "0000";
+        static readonly string host = "localhost";
+        static readonly string port = "5432";
+        static readonly string datebase = "restaurant";
+        static readonly string username = "admin";
+        static readonly string password = "hydra";
 
         public static string GetConnectionString() 
         {

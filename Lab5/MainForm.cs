@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,32 +15,28 @@ namespace Lab5
 {
     public partial class MainForm : Form
     {
+        // Строка запроса к БД
+        const string queryString = @"SELECT * FROM dishes";
+
         // Дескриптор соединения с БД
         private readonly NpgsqlConnection Connection;
         // Строка соединения с БД
         private readonly string ConnectionString;
+        // Адаптер для работы с БД
+        private readonly NpgsqlDataAdapter DataAdapter;
+        // Таблица с данными
+        private readonly DataTable DataTable;
 
-        // Дочернее окно
-        private readonly InfoForm InfoForm;
-
-        DataSet dataSet ;
-        DataTable dataTable;
-        NpgsqlDataAdapter adapter;
         public MainForm()
         {
             InitializeComponent();
             
             this.Connection = new NpgsqlConnection();
             this.ConnectionString = ServerInfo.GetConnectionString();
-            this.InfoForm = new InfoForm();
-            this.AddOwnedForm(this.InfoForm);
+            this.DataAdapter = new NpgsqlDataAdapter(queryString, this.Connection);
+            this.DataTable = new DataTable();
         }
 
-        /// <summary>
-        /// Событие соединения с БД и извлечения данных из неё
-        /// </summary>
-        /// <param name="sender">Объект, вызвавший данное событие</param>
-        /// <param name="e">Аргументы события</param>
         private async void ShowButtonClick(object sender, EventArgs e)
         {
             try
@@ -47,10 +44,10 @@ namespace Lab5
                 this.Connection.ConnectionString = this.ConnectionString;
                 await this.Connection.OpenAsync();
             }
-            catch (SystemException exception)
+            catch (SystemException error)
             {
                 MessageBox.Show(
-                    exception.Message, "Ошибка подключения к базе данных",
+                    $"Ошибка при подключении к базе данных: {error.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error
                 );
 
@@ -59,84 +56,76 @@ namespace Lab5
 
             try
             {
-                string queryString = @"SELECT * FROM dishes";
-                adapter =new NpgsqlDataAdapter(queryString,this.Connection);
-                dataSet = new DataSet();
-                dataTable=new DataTable();
-                TableView.ForeColor = Color.Black;
-                dataSet.Reset();
-                adapter.Fill(dataSet);
-                dataTable=dataSet.Tables[0];
-                TableView.DataSource = dataTable;
-                TableView.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                var query = new NpgsqlCommand(queryString, this.Connection);
+                var reader = await query.ExecuteReaderAsync();
+
+                this.DataTable.Clear();
+                this.DataTable.Load(reader);
+                this.TableView.DataSource = this.DataTable;
             }
-            catch (Exception exception)
+            catch (SystemException error)
             {
                 MessageBox.Show(
-                    exception.Message, "Ошибка извлечения данных",
+                    $"Ошибка извлечения данных: {error.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error
                 );
 
                 return;
             }
+
             await this.Connection.CloseAsync();
+
             this.TableView.Enabled = true;
             this.InsertButton.Enabled = true;
             this.DeleteButton.Enabled = true;
-            customButton.Enabled = true;
-            updateButton.Enabled = true;
+            this.ExecuteButton.Enabled = true;
+            this.UpdateButton.Enabled = true;
         }
 
-        /// <summary>
-        /// Событие вставки строки в таблицу БД
-        /// </summary>
-        /// <param name="sender">Объект, вызвавший данное событие</param>
-        /// <param name="e">Аргументы события</param>
         private void InsertButtonClick(object sender, EventArgs e)
         {
-            var addWindow= new AddForm();
+            var addWindow = new AddForm();
+
             addWindow.ShowDialog();
             ShowButtonClick(this, EventArgs.Empty);
         }
 
-        /// <summary>
-        /// Событие удаления строки из таблицы БД
-        /// </summary>
-        /// <param name="sender">Объект, вызвавший данное событие</param>
-        /// <param name="e">Аргументы события</param>
         private void DeleteButtonClick(object sender, EventArgs e)
         {
-            var deleteWindow= new DeleteForm();
+            var deleteWindow = new DeleteForm();
+
             deleteWindow.ShowDialog();
             ShowButtonClick(this, EventArgs.Empty);
         }
 
-        private void EnviromentClick(object sender, EventArgs e) => ((Control)sender).Select();
-
-        private void customButton_Click(object sender, EventArgs e)
+        private void ExecuteButtonClick(object sender, EventArgs e)
         {
             var customForm = new CustomForm();
+
             customForm.ShowDialog();
-            if (CustomForm.returnTable.Rows.Count != 0) TableView.DataSource = CustomForm.returnTable;
-            else ShowButtonClick(this, EventArgs.Empty);
+            if (customForm.ReturnTable.Rows.Count != 0)
+                this.TableView.DataSource = customForm.ReturnTable;
+            else
+                ShowButtonClick(this, EventArgs.Empty);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void UpdateButtonClick(object sender, EventArgs e)
         {
             try
             {
-                var chagesTable = new DataTable();
-                chagesTable = dataTable.GetChanges(DataRowState.Modified);
-                adapter.UpdateCommand = new NpgsqlCommandBuilder(adapter).GetUpdateCommand();
-                adapter.Update(dataTable);
-                TableView.ForeColor = Color.Green;
-                TableView.DataSource=chagesTable;
-                TableView.Columns[1].AutoSizeMode=DataGridViewAutoSizeColumnMode.Fill;
+                this.DataAdapter.UpdateCommand = new NpgsqlCommandBuilder(this.DataAdapter).GetUpdateCommand();
+                this.DataAdapter.Update(this.DataTable);
+                this.TableView.DataSource = this.DataTable.GetChanges(DataRowState.Added | DataRowState.Modified);
             }
-            catch (Exception ex)
+            catch (SystemException error)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    $"Не удалось обновить данные: {error.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error
+                );
             }
         }
+
+        private void EnviromentClick(object sender, EventArgs e) => ((Control)sender).Select();
     }
 }

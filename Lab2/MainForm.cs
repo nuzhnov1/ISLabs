@@ -56,10 +56,10 @@ namespace Lab2
                 this.Connection.ConnectionString = this.ConnectionString;
                 await this.Connection.OpenAsync();
             }
-            catch (SystemException exception)
+            catch (SystemException error)
             {
                 MessageBox.Show(
-                    exception.Message, "Ошибка подключения к базе данных",
+                    $"Ошибка подключения к базе данных: { error.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error
                 );
 
@@ -68,34 +68,7 @@ namespace Lab2
 
             try
             {
-                string queryString = @"
-                    WITH waiters AS (
-	                    SELECT
-		                    workers.id AS id,
-		                    workers.full_name AS name,
-		                    positions.name AS position
-	                    FROM workers INNER JOIN positions ON workers.position_id = positions.id
-	                    WHERE positions.name = 'Waiter'
-                    ),
-                    cooks AS (
-	                    SELECT
-		                    workers.id AS id,
-		                    workers.full_name AS name,
-		                    positions.name AS position
-	                    FROM workers INNER JOIN positions ON workers.position_id = positions.id
-	                    WHERE positions.name = 'Chef'
-                    )
-                    SELECT
-	                    dishes.name AS dish_name,
-	                    dishes.price AS dish_price,
-	                    dishes.cook_time AS dish_cook_time,
-	                    waiters.name AS waiter,
-	                    cooks.name AS chef
-                    FROM orders
-	                    INNER JOIN dishes ON orders.dish_id = dishes.id
-	                    INNER JOIN waiters ON orders.waiter_id = waiters.id
-	                    INNER JOIN cooks ON orders.chef_id = cooks.id;
-                ";
+                string queryString = @"SELECT * FROM dishes;";
                 
                 await using var query = new NpgsqlCommand(queryString, this.Connection);
                 await using var reader = await query.ExecuteReaderAsync();
@@ -104,10 +77,10 @@ namespace Lab2
                 table.Load(reader);
                 this.TableView.DataSource = table;
             }
-            catch (Exception exception)
+            catch (Exception error)
             {
                 MessageBox.Show(
-                    exception.Message, "Ошибка извлечения данных",
+                    $"Ошибка извлечения данных : {error.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error
                 );
 

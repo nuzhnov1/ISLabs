@@ -50,10 +50,5 @@ namespace Lab1
             else if (e.KeyCode == Keys.Escape)
                 Exit();
         }
-
-        private void User_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

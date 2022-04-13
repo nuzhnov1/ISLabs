@@ -19,25 +19,15 @@ namespace Lab3
         private readonly NpgsqlConnection Connection;
         // Строка соединения с БД
         private readonly string ConnectionString;
-
-        // Дочернее окно
-        private readonly InfoForm InfoForm;
-
+        
         public MainForm()
         {
             InitializeComponent();
-
+            
             this.Connection = new NpgsqlConnection();
             this.ConnectionString = ServerInfo.GetConnectionString();
-            this.InfoForm = new InfoForm();
-            this.AddOwnedForm(this.InfoForm);
         }
 
-        /// <summary>
-        /// Событие соединения с БД и извлечения данных из неё
-        /// </summary>
-        /// <param name="sender">Объект, вызвавший данное событие</param>
-        /// <param name="e">Аргументы события</param>
         private async void ShowButtonClick(object sender, EventArgs e)
         {
             try
@@ -45,10 +35,10 @@ namespace Lab3
                 this.Connection.ConnectionString = this.ConnectionString;
                 await this.Connection.OpenAsync();
             }
-            catch (SystemException exception)
+            catch (SystemException error)
             {
                 MessageBox.Show(
-                    exception.Message, "Ошибка подключения к базе данных",
+                    $"Ошибка при подключении к базе данных: {error.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error
                 );
 
@@ -59,61 +49,58 @@ namespace Lab3
             {
                 string queryString = @"SELECT * FROM dishes";
 
-                await using var query = new NpgsqlCommand(queryString, this.Connection);
-                await using var reader = await query.ExecuteReaderAsync();
+                var query = new NpgsqlCommand(queryString, this.Connection);
+                var reader = await query.ExecuteReaderAsync();
                 var table = new DataTable();
 
                 table.Load(reader);
                 this.TableView.DataSource = table;
             }
-            catch (Exception exception)
+            catch (SystemException error)
             {
                 MessageBox.Show(
-                    exception.Message, "Ошибка извлечения данных",
+                    $"Ошибка извлечения данных: {error.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error
                 );
 
                 return;
             }
+
             await this.Connection.CloseAsync();
+
             this.TableView.Enabled = true;
             this.InsertButton.Enabled = true;
             this.DeleteButton.Enabled = true;
-            customButton.Enabled = true;
+            this.ExecuteButton.Enabled = true;
         }
 
-        /// <summary>
-        /// Событие вставки строки в таблицу БД
-        /// </summary>
-        /// <param name="sender">Объект, вызвавший данное событие</param>
-        /// <param name="e">Аргументы события</param>
         private void InsertButtonClick(object sender, EventArgs e)
         {
             var addWindow = new AddForm();
+
             addWindow.ShowDialog();
             ShowButtonClick(this, EventArgs.Empty);
         }
 
-        /// <summary>
-        /// Событие удаления строки из таблицы БД
-        /// </summary>
-        /// <param name="sender">Объект, вызвавший данное событие</param>
-        /// <param name="e">Аргументы события</param>
         private void DeleteButtonClick(object sender, EventArgs e)
         {
             var deleteWindow = new DeleteForm();
+
             deleteWindow.ShowDialog();
             ShowButtonClick(this, EventArgs.Empty);
         }
 
-        private void EnviromentClick(object sender, EventArgs e) => ((Control)sender).Select();
-
-        private void customButton_Click(object sender, EventArgs e)
+        private void ExecuteButtonClick(object sender, EventArgs e)
         {
             var customForm = new CustomForm();
+
             customForm.ShowDialog();
-            if (CustomForm.returnTable.Rows.Count != 0) TableView.DataSource = CustomForm.returnTable;
-            else ShowButtonClick(this, EventArgs.Empty);
+            if (customForm.ReturnTable.Rows.Count != 0)
+                this.TableView.DataSource = customForm.ReturnTable;
+            else
+                ShowButtonClick(this, EventArgs.Empty);
         }
+
+        private void EnviromentClick(object sender, EventArgs e) => ((Control)sender).Select();
     }
 }

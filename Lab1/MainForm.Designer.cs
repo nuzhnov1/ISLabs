@@ -38,12 +38,12 @@
             this.ExecButton = new System.Windows.Forms.Button();
             this.QueryBox = new System.Windows.Forms.TextBox();
             this.QueryLabel = new System.Windows.Forms.Label();
-            this.TableView = new System.Windows.Forms.DataGridView();
             this.StatusLabel = new System.Windows.Forms.Label();
             this.StatusValueLabel = new System.Windows.Forms.Label();
             this.MainPanel = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.TableView)).BeginInit();
+            this.TableView = new System.Windows.Forms.DataGridView();
             this.MainPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TableView)).BeginInit();
             this.SuspendLayout();
             // 
             // InitButton
@@ -151,56 +151,6 @@
             this.QueryLabel.Text = "Команда на языке SQL:";
             this.QueryLabel.Click += new System.EventHandler(this.EnviromentClick);
             // 
-            // TableView
-            // 
-            this.TableView.AllowUserToAddRows = false;
-            this.TableView.AllowUserToDeleteRows = false;
-            this.TableView.AllowUserToResizeColumns = false;
-            this.TableView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Salmon;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Aqua;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.TableView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.TableView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.TableView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.TableView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.TableView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.LightYellow;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Aqua;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.TableView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.TableView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.TableView.Cursor = System.Windows.Forms.Cursors.Default;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Aqua;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.TableView.DefaultCellStyle = dataGridViewCellStyle3;
-            this.TableView.Enabled = false;
-            this.TableView.GridColor = System.Drawing.Color.Gold;
-            this.TableView.Location = new System.Drawing.Point(10, 172);
-            this.TableView.Margin = new System.Windows.Forms.Padding(10);
-            this.TableView.Name = "TableView";
-            this.TableView.ReadOnly = true;
-            this.TableView.RowHeadersVisible = false;
-            this.TableView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.TableView.RowTemplate.Height = 25;
-            this.TableView.ShowEditingIcon = false;
-            this.TableView.Size = new System.Drawing.Size(988, 360);
-            this.TableView.TabIndex = 15;
-            this.TableView.Click += new System.EventHandler(this.EnviromentClick);
-            // 
             // StatusLabel
             // 
             this.StatusLabel.AutoSize = true;
@@ -232,8 +182,8 @@
             // 
             // MainPanel
             // 
-            this.MainPanel.Controls.Add(this.InitButton);
             this.MainPanel.Controls.Add(this.TableView);
+            this.MainPanel.Controls.Add(this.InitButton);
             this.MainPanel.Controls.Add(this.StatusValueLabel);
             this.MainPanel.Controls.Add(this.ExecButton);
             this.MainPanel.Controls.Add(this.StatusLabel);
@@ -248,6 +198,51 @@
             this.MainPanel.TabIndex = 18;
             this.MainPanel.Click += new System.EventHandler(this.EnviromentClick);
             // 
+            // TableView
+            // 
+            this.TableView.AllowUserToAddRows = false;
+            this.TableView.AllowUserToDeleteRows = false;
+            this.TableView.AllowUserToOrderColumns = true;
+            this.TableView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.TableView.BackgroundColor = System.Drawing.SystemColors.AppWorkspace;
+            this.TableView.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
+            this.TableView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGreen;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Green;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
+            this.TableView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.TableView.DefaultCellStyle = dataGridViewCellStyle2;
+            this.TableView.Enabled = false;
+            this.TableView.EnableHeadersVisualStyles = false;
+            this.TableView.GridColor = System.Drawing.Color.Black;
+            this.TableView.Location = new System.Drawing.Point(10, 162);
+            this.TableView.Margin = new System.Windows.Forms.Padding(0);
+            this.TableView.Name = "TableView";
+            this.TableView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.LightSalmon;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Salmon;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.TableView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.TableView.RowTemplate.Height = 25;
+            this.TableView.ShowCellToolTips = false;
+            this.TableView.ShowEditingIcon = false;
+            this.TableView.Size = new System.Drawing.Size(1001, 390);
+            this.TableView.TabIndex = 21;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
@@ -261,9 +256,9 @@
             this.Name = "MainForm";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Text = "ИС. Лабораторная работа №1. Команда - HydraSquad.";
-            ((System.ComponentModel.ISupportInitialize)(this.TableView)).EndInit();
             this.MainPanel.ResumeLayout(false);
             this.MainPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TableView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -276,9 +271,9 @@
         private System.Windows.Forms.Button ExecButton;
         private System.Windows.Forms.TextBox QueryBox;
         private System.Windows.Forms.Label QueryLabel;
-        private System.Windows.Forms.DataGridView TableView;
         private System.Windows.Forms.Label StatusLabel;
         private System.Windows.Forms.Label StatusValueLabel;
         private System.Windows.Forms.Panel MainPanel;
+        private System.Windows.Forms.DataGridView TableView;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Npgsql;
 using System;
+using System.Globalization;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,25 +19,43 @@ namespace Lab3
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e) => this.Close();
-
-        private void button2_Click(object sender, EventArgs e)
+        private async void SubmitButtonClick(object sender, EventArgs e)
         {
             try
             {
-                double price = double.Parse(textBox2.Text);
-                string name = textBox1.Text;
+                double price = double.Parse(this.PriceBox.Text, NumberStyles.Number, CultureInfo.InvariantCulture);
+                string name = this.NameBox.Text;
                 var connection = new NpgsqlConnection(ServerInfo.GetConnectionString());
-                connection.OpenAsync();
-                var query = new NpgsqlCommand($"SELECT myadd('{name}',{price})", connection);
-                query.ExecuteReader();
-                connection.CloseAsync();
+                await connection.OpenAsync();
+
+                string queryString = String.Format(
+                    CultureInfo.InvariantCulture,
+                    $"SELECT add_record('{name}', {price.ToString(CultureInfo.InvariantCulture)})"
+                );
+                var query = new NpgsqlCommand(queryString, connection);
+                await query.ExecuteReaderAsync();
+                
+                await connection.CloseAsync();
                 this.Close();
             }
-            catch (Exception) 
+            catch (NpgsqlException error)
             {
-                MessageBox.Show("Некорректно введены данные", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    $"Не удалось осуществить вставку новой строки: {error.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error
+                );
+            }
+            catch (SystemException error) 
+            {
+                MessageBox.Show(
+                    $"Некорректно введены данные: {error.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error
+                );
             }
         }
+
+        private void CancelButtonClick(object sender, EventArgs e) => this.Close();
+
+        private void EnviromentClick(object sender, EventArgs e) => ((Control)sender).Select();
     }
 }

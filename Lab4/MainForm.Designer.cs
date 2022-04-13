@@ -30,10 +30,11 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.ShowButton = new System.Windows.Forms.Button();
             this.MainPanel = new System.Windows.Forms.Panel();
-            this.customButton = new System.Windows.Forms.Button();
+            this.ExecuteButton = new System.Windows.Forms.Button();
             this.TableView = new System.Windows.Forms.DataGridView();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.InsertButton = new System.Windows.Forms.Button();
@@ -56,13 +57,13 @@
             this.ShowButton.Name = "ShowButton";
             this.ShowButton.Size = new System.Drawing.Size(163, 50);
             this.ShowButton.TabIndex = 8;
-            this.ShowButton.Text = "Показать";
+            this.ShowButton.Text = "Показать таблицу";
             this.ShowButton.UseVisualStyleBackColor = false;
             this.ShowButton.Click += new System.EventHandler(this.ShowButtonClick);
             // 
             // MainPanel
             // 
-            this.MainPanel.Controls.Add(this.customButton);
+            this.MainPanel.Controls.Add(this.ExecuteButton);
             this.MainPanel.Controls.Add(this.TableView);
             this.MainPanel.Controls.Add(this.DeleteButton);
             this.MainPanel.Controls.Add(this.InsertButton);
@@ -74,60 +75,66 @@
             this.MainPanel.TabIndex = 18;
             this.MainPanel.Click += new System.EventHandler(this.EnviromentClick);
             // 
-            // customButton
+            // ExecuteButton
             // 
-            this.customButton.AutoSize = true;
-            this.customButton.BackColor = System.Drawing.SystemColors.Desktop;
-            this.customButton.Enabled = false;
-            this.customButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrchid;
-            this.customButton.FlatAppearance.BorderSize = 2;
-            this.customButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.customButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.customButton.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.customButton.ImageKey = "(нет)";
-            this.customButton.Location = new System.Drawing.Point(838, 240);
-            this.customButton.Margin = new System.Windows.Forms.Padding(0, 0, 10, 20);
-            this.customButton.Name = "customButton";
-            this.customButton.Size = new System.Drawing.Size(163, 50);
-            this.customButton.TabIndex = 22;
-            this.customButton.Text = "Запрос";
-            this.customButton.UseVisualStyleBackColor = false;
-            this.customButton.Click += new System.EventHandler(this.customButton_Click);
+            this.ExecuteButton.AutoSize = true;
+            this.ExecuteButton.BackColor = System.Drawing.SystemColors.Desktop;
+            this.ExecuteButton.Enabled = false;
+            this.ExecuteButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkOrchid;
+            this.ExecuteButton.FlatAppearance.BorderSize = 2;
+            this.ExecuteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ExecuteButton.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ExecuteButton.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.ExecuteButton.ImageKey = "(нет)";
+            this.ExecuteButton.Location = new System.Drawing.Point(838, 240);
+            this.ExecuteButton.Margin = new System.Windows.Forms.Padding(0, 0, 10, 20);
+            this.ExecuteButton.Name = "ExecuteButton";
+            this.ExecuteButton.Size = new System.Drawing.Size(163, 50);
+            this.ExecuteButton.TabIndex = 21;
+            this.ExecuteButton.Text = "Выполнить запрос";
+            this.ExecuteButton.UseVisualStyleBackColor = false;
+            this.ExecuteButton.Click += new System.EventHandler(this.ExecuteButtonClick);
             // 
             // TableView
             // 
             this.TableView.AllowUserToAddRows = false;
             this.TableView.AllowUserToDeleteRows = false;
-            this.TableView.AllowUserToResizeColumns = false;
-            this.TableView.AllowUserToResizeRows = false;
+            this.TableView.AllowUserToOrderColumns = true;
             this.TableView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.TableView.BackgroundColor = System.Drawing.SystemColors.ControlLight;
-            this.TableView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.TableView.BackgroundColor = System.Drawing.SystemColors.AppWorkspace;
             this.TableView.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
             this.TableView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.LightGreen;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Green;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
             this.TableView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.TableView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.InactiveCaption;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.TableView.DefaultCellStyle = dataGridViewCellStyle2;
             this.TableView.Enabled = false;
             this.TableView.EnableHeadersVisualStyles = false;
+            this.TableView.GridColor = System.Drawing.Color.Black;
             this.TableView.Location = new System.Drawing.Point(0, 0);
             this.TableView.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.TableView.Name = "TableView";
             this.TableView.ReadOnly = true;
-            this.TableView.RowHeadersVisible = false;
+            this.TableView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.LightSalmon;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Salmon;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.TableView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.TableView.RowTemplate.Height = 25;
             this.TableView.ShowCellToolTips = false;
             this.TableView.ShowEditingIcon = false;
@@ -151,7 +158,7 @@
             this.DeleteButton.Name = "DeleteButton";
             this.DeleteButton.Size = new System.Drawing.Size(163, 50);
             this.DeleteButton.TabIndex = 19;
-            this.DeleteButton.Text = "Удалить";
+            this.DeleteButton.Text = "Удалить запись";
             this.DeleteButton.UseVisualStyleBackColor = false;
             this.DeleteButton.Click += new System.EventHandler(this.DeleteButtonClick);
             // 
@@ -171,7 +178,7 @@
             this.InsertButton.Name = "InsertButton";
             this.InsertButton.Size = new System.Drawing.Size(163, 50);
             this.InsertButton.TabIndex = 18;
-            this.InsertButton.Text = "Вставить";
+            this.InsertButton.Text = "Новая запись";
             this.InsertButton.UseVisualStyleBackColor = false;
             this.InsertButton.Click += new System.EventHandler(this.InsertButtonClick);
             // 
@@ -186,8 +193,10 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
+            this.Padding = new System.Windows.Forms.Padding(10);
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.Text = "ИС. Лабораторная работа №4. Команда - HydraSquad.";
+            this.Click += new System.EventHandler(this.EnviromentClick);
             this.MainPanel.ResumeLayout(false);
             this.MainPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TableView)).EndInit();
@@ -202,6 +211,6 @@
         private System.Windows.Forms.Button DeleteButton;
         private System.Windows.Forms.Button InsertButton;
         private System.Windows.Forms.DataGridView TableView;
-        private System.Windows.Forms.Button customButton;
+        private System.Windows.Forms.Button ExecuteButton;
     }
 }

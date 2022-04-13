@@ -43,10 +43,10 @@ namespace Lab1
                 this.ConnectionForm.ShowDialog();
                 this.ConnectionString = this.ConnectionForm.ConnectionString;
             }
-            catch (SystemException exception)
+            catch (SystemException error)
             {
                 MessageBox.Show(
-                    exception.Message, "Ошибка инициализации",
+                    $"Ошибка инициализации: {error.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error
                 );
             }
@@ -78,7 +78,7 @@ namespace Lab1
                     this.StatusValueLabel.Text = "инициализировано";
                     this.StatusValueLabel.ForeColor = Color.Green;
                 }
-                catch (NpgsqlException exception)
+                catch (NpgsqlException error)
                 {
                     this.OpenButton.Enabled = false;
                     this.CloseButton.Enabled = false;
@@ -90,10 +90,10 @@ namespace Lab1
                     this.StatusValueLabel.ForeColor = Color.Black;
 
                     MessageBox.Show(
-                        exception.Message, "Ошибка инициализации",
+                        $"Ошибка инициализации: {error.Message}", "Ошибка",
                         MessageBoxButtons.OK, MessageBoxIcon.Error
                     );
-                }
+            }
             }
         }
 
@@ -118,10 +118,10 @@ namespace Lab1
                 this.StatusValueLabel.Text = "открыто";
                 this.StatusValueLabel.ForeColor = Color.Yellow;
             }
-            catch (NpgsqlException exception)
+            catch (NpgsqlException error)
             {
                 MessageBox.Show(
-                    exception.Message, "Ошибка открытия",
+                    $"Ошибка открытия: {error.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error
                 );
             }
@@ -150,10 +150,10 @@ namespace Lab1
                 this.StatusValueLabel.Text = "закрыто";
                 this.StatusValueLabel.ForeColor = Color.Red;
             }
-            catch (NpgsqlException exception)
+            catch (NpgsqlException error)
             {
                 MessageBox.Show(
-                    exception.Message, "Ошибка закрытия",
+                    $"Ошибка закрытия: {error.Message}", "Ошибка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error
                 );
             }
@@ -183,15 +183,18 @@ namespace Lab1
                 }
                 else
                 {
-                    MessageBox.Show("Операция выполнена успешно", 
-                        "Результат выполнения команды", 
+                    MessageBox.Show(
+                        "Операция выполнена успешно", "Результат выполнения команды", 
                         MessageBoxButtons.OK, MessageBoxIcon.Information
                     );
                 }
             }
-            catch (NpgsqlException exception)
+            catch (NpgsqlException error)
             {
-                MessageBox.Show(exception.Message, "Ошибка выполнения команды", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    $"Ошибка выполнения комадны: {error.Message}", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error
+                );
             }
         }
 
