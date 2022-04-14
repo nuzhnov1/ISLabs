@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lab3
+namespace Lab7
 {
     static class ServerInfo
     {
-        static readonly string host = "localhost";
-        static readonly string port = "5432";
-        static readonly string datebase = "restaurant";
-        static readonly string username = "admin";
-        static readonly string password = "hydra";
+        public static readonly string host = "localhost";
+        public static readonly string port = "5432";
+        public static string datebase = "restaurant";
+        public static readonly string username = "admin";
+        public static readonly string password = "hydra";
 
         public static string GetConnectionString() 
         {

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Npgsql;    
 
-namespace Lab3
+namespace Lab7
 {
     public partial class CustomForm : Form
     {
