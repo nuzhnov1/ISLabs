@@ -1,4 +1,4 @@
-﻿namespace Lab6
+﻿namespace RGZ
 {
     partial class MainForm
     {

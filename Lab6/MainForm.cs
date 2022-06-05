@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Lab6
+namespace RGZ
 {
     public partial class MainForm : Form
     {
