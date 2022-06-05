@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <PackageReference Include="Accelergreat.EntityFramework.PostgreSql" Version="1.4.2" />
+    <PackageReference Include="Npgsql" Version="6.0.4" />
   </ItemGroup>
 
   <ItemGroup>
